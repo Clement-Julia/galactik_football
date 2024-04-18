@@ -1,12 +1,15 @@
 import express, { Express, Request, Response } from 'express'
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
+import userRoutes from './routes/userRoutes'
+import cors from "cors"
+require('dotenv').config();
 const mongoose = require('mongoose');
 
 const app: Express = express()
 const PORT = 3000
 
-const uri = "mongodb+srv://user:azerty@footmanager.pqkcy3h.mongodb.net/?retryWrites=true&w=majority&appName=FootManager";
+const uri = "mongodb+srv://user:azerty@footmanager.pqkcy3h.mongodb.net/bastienDatabase?retryWrites=true&w=majority&appName=FootManager";
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
 
 async function run() {
@@ -34,7 +37,8 @@ const options = {
 };
 
 const specs = swaggerJsdoc(options);
-
+app.use(cors()); 
+app.use('/api/user',userRoutes)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.listen(PORT, () => {
