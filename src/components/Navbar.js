@@ -1,6 +1,14 @@
 import React from "react";
-
+import UserController from "../controller/userController";
+let controller = new UserController();
 class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoggedIn: controller.isLoggedIn() // Par défaut, l'utilisateur n'est pas connecté
+    };
+    console.log('test isConnected', controller.isLoggedIn(),controller)
+  }
   render() {
     return (
       <nav className="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
@@ -46,6 +54,35 @@ class Navbar extends React.Component {
                   Tournament
                 </a>
               </li>
+              {!this.state.isLoggedIn ? (
+                <React.Fragment>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/connexion">
+                      Connexion
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/inscription">
+                      Inscription
+                    </a>
+                  </li>
+                </React.Fragment>
+              )
+              : (
+                  <React.Fragment>
+                  <li className="nav-item">
+                    <a className="nav-link" onClick={()=>{controller.logout()}} href="/deconnexion">
+                      Déconnexion
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/administrationuser">
+                      Administration User
+                    </a>
+                  </li>
+
+                </React.Fragment>
+              )}
             </ul>
           </div>
         </div>
