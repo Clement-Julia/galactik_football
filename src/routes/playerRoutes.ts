@@ -50,8 +50,8 @@ router.post('/', async (req: Request, res: Response) => {
             position: player.position,
             team: player.team
 		});
-		await onePlayerModel.save();
-		res.status(201).send('Player added');
+		let savedPlayer = await onePlayerModel.save();
+		res.status(201).send({ message: 'Player added', data: savedPlayer });
 	} catch (err) {
 		if (err instanceof mongoose.Error.ValidationError) {
 			res.status(400).send({ message: 'Validation failed', errors: err.errors });

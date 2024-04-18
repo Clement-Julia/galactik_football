@@ -47,8 +47,8 @@ router.post('/', async (req: Request, res: Response) => {
             name: team.name,
             league: team.league,
 		});
-		await oneTeamModel.save();
-		res.status(201).send('Team added');
+		let savedTeam = await oneTeamModel.save();
+		res.status(201).send({ message: 'Team added', data: savedTeam });
 	} catch (err) {
 		if (err instanceof mongoose.Error.ValidationError) {
 			res.status(400).send({ message: 'Validation failed', errors: err.errors });
