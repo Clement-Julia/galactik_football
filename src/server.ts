@@ -11,12 +11,14 @@ import ruleRoutes from './routes/ruleRoutes';
 import leagueRoutes from './routes/leagueRoutes';
 import scoreRoutes from './routes/scoreRoutes';
 import userRoutes from './routes/userRoutes';
-import userPlayerRoutes from './routes/UserPlayerRoutes';
+import userPlayerRoutes from './routes/userPlayerRoutes';
 
 const app: Express = express()
 const PORT = 3001
 
 const uri = "mongodb+srv://user:azerty@footmanager.pqkcy3h.mongodb.net/clement?retryWrites=true&w=majority&appName=FootManager";
+
+require('dotenv').config();
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
 
 async function run() {
