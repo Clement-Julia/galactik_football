@@ -32,18 +32,28 @@ class Navbar extends React.Component {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/player">
                   Player
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/team">
                   Team
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/league">
+                  League
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/tournament">
                   Tournament
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/match">
+                  Planning
                 </a>
               </li>
             </ul>
