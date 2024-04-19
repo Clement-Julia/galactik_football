@@ -23,6 +23,40 @@ router.get('/', async (req: Request, res: Response) => {
 	res.status(200).json(allTeams);
 });
 
+router.get('/playerTeam/:id', async (req: Request, res: Response) => {
+	try {
+		const team = await teamModel.findOne({ 'user': req.params.id });
+		if (team) {
+			res.status(200).json(team);
+		} else {
+			res.status(404).send('Team not found for player');
+		}
+	} catch (err) {
+		if (err instanceof mongoose.Error.ValidationError) {
+			res.status(400).send({ message: 'Validation failed', errors: err.errors });
+		} else {
+			res.status(500).send('Error finding team for player');
+		}
+	}
+});
+
+router.post('/playerTeam/:id', async (req: Request, res: Response) => {
+	try {
+		const team = await teamModel.findOne({ 'user': req.params.id });
+		if (team) {
+			res.status(200).json(team);
+		} else {
+			res.status(404).send('Team not found for player');
+		}
+	} catch (err) {
+		if (err instanceof mongoose.Error.ValidationError) {
+			res.status(400).send({ message: 'Validation failed', errors: err.errors });
+		} else {
+			res.status(500).send('Error finding team for player');
+		}
+	}
+});
+
 router.get('/:id', async (req: Request, res: Response) => {
 	try {
 		const team = await teamModel.findById(req.params.id);
