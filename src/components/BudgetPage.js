@@ -34,14 +34,13 @@ const BudgetPage = () => {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/api/player`);
-            const filteredResults = response.data.filter(player => player.name.includes(searchTerm));
-    
+            const response = await axios.get(`/api/players/search?name=${searchTerm}`);
+            const filteredResults = response.data;
+            
             const searchResultsWithOwnership = filteredResults.map(player => {
-                const playerIds = playerList.map(player => player._id);
-                const isOwned = playerIds.includes(player._id);
+                const isOwned = playerList.some(p => p._id === player._id);
                 return { ...player, isOwned };
-            });            
+            });
     
             setSearchResults(searchResultsWithOwnership);
         } catch (error) {
