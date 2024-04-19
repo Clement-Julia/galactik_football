@@ -28,6 +28,20 @@ async function run() {
 }
 run().catch(console.dir);
 
+const options = {
+    swaggerDefinition: {
+        info: {
+            title: 'Express API with Swagger',
+            version: '1.0.0',
+            description: 'This is a sample server',
+        },
+    },
+    apis: ['./src/routes/*.ts'],
+};
+const specs = swaggerJsdoc(options);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsdoc(options)));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
 app.use(express.json())
 app.use(cors());
 app.use('/api/tournament', tournamentRoutes)
@@ -37,21 +51,6 @@ app.use('/api/match', matchRoutes)
 app.use('/api/rule', ruleRoutes)
 app.use('/api/league', leagueRoutes)
 app.use('/api/score', scoreRoutes)
-
-const options = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'Express API with Swagger',
-            version: '1.0.0',
-        },
-    },
-    apis: ['./routes/*.ts'],
-};
-
-const specs = swaggerJsdoc(options);
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)

@@ -1,6 +1,7 @@
 import { Schema } from "mongoose";
 
-export interface ILeague { 
+export interface ILeague {
+    id: string;
     name: string;
     pays: string;
 }

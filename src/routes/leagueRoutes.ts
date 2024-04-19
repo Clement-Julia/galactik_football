@@ -6,23 +6,39 @@ const leagueModel = mongoose.model('League', leagueSchema);
 const router = Router();
 
 /**
-    * @swagger
-    * /League:
-    *   get:
-    *     description: Get all leagues
-    *     responses:
-    *       200:
-    *         description: Success
-    *         schema:
-    *           type: array
-    *           items:
-    *             $ref: '#/definitions/League'
-    */
+ * @swagger
+ * /League:
+ *   get:
+ *     description: Get all leagues
+ *     responses:
+ *       200:
+ *         description: Success
+ */
 router.get('/', async (req: Request, res: Response) => {
 	let allLeagues = await leagueModel.find();
 	res.status(200).json(allLeagues);
 });
 
+/**
+ * @swagger
+ * /League/{id}:
+ *   get:
+ *     description: Get a league by ID
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: League not found
+ *       500:
+ *         description: Error finding league
+ * 
+ */
 router.get('/:id', async (req: Request, res: Response) => {
 	try {
 		const league = await leagueModel.findById(req.params.id);
@@ -40,6 +56,24 @@ router.get('/:id', async (req: Request, res: Response) => {
 	}
 });
 
+/**
+    * @swagger
+	* /League:
+	*   post:
+	*     description: Add a new league
+	*     requestBody:
+	*       required: true
+	*       content:
+	*         application/json
+	*     responses:
+	*       201:
+	*         description: League added
+	*       400:
+	*         description: Validation failed
+	*       500:
+	*         description: Error adding league
+	* 
+	*/
 router.post('/', async (req: Request, res: Response) => {
 	const league: ILeague = req.body;
 	try {
@@ -58,6 +92,28 @@ router.post('/', async (req: Request, res: Response) => {
 	}
 });
 
+/**
+    * @swagger
+	* /League/{id}:
+	*   put:
+	*     description: Update a league
+	*     parameters:
+	*       - name: id
+	*         in: path
+	*         required: true
+	*         schema:
+	*           type: string
+	*     requestBody:
+	*       required: true
+	*     responses:
+	*       200:
+	*         description: League updated
+	*       400:
+	*         description: Validation failed
+	*       500:
+	*         description: Error updating league
+	* 
+	*/
 router.put('/:id', async (req: Request, res: Response) => {
 	const updatedLeague: ILeague = req.body;
 	try {
@@ -72,6 +128,25 @@ router.put('/:id', async (req: Request, res: Response) => {
 	}
 });
 
+/**
+    * @swagger
+	* /League/{id}:
+	*   delete:
+	*     description: Delete a league
+	*     parameters:
+	*       - name: id
+	*         in: path
+	*         required: true
+	*         schema:
+	*           type: string
+	*     responses:
+	*       200:
+	*         description: League deleted
+	*       400:
+	*         description: Validation failed
+	*       500:
+	*         description: Error deleting league
+	*/
 router.delete('/:id', async (req: Request, res: Response) => {
 	try {
 		await leagueModel.findByIdAndDelete(req.params.id);

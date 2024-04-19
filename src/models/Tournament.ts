@@ -3,7 +3,8 @@ import { ITeam } from "./Team";
 import { IRule } from "./Rule";
 import { ILeague } from "./League";
 
-export interface ITournament { 
+export interface ITournament {
+    id: string;
     name: string; 
     teams: ITeam[]; 
     rules: IRule[];

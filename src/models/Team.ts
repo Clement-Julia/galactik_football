@@ -2,6 +2,7 @@ import { Schema } from "mongoose";
 import { ILeague } from "./League";
 
 export interface ITeam { 
+    id: string;
     name: string;
     league: ILeague[];
 }

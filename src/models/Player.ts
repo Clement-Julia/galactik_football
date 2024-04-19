@@ -2,6 +2,7 @@ import { Schema } from "mongoose";
 import { ITeam } from "./Team";
 
 export interface IPlayer {
+    id: string;
     name: string;
     age: number;
     nationality: string;

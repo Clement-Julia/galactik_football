@@ -1,6 +1,7 @@
 import { Schema } from "mongoose";
 
 export interface IRule {
+    id: string;
     name: string;
     description: string;
 }

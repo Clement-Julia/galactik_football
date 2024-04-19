@@ -6,23 +6,43 @@ const ruleModel = mongoose.model('Rule', ruleSchema);
 const router = Router();
 
 /**
-    * @swagger
-    * /Rule:
-    *   get:
-    *     description: Get all rules
-    *     responses:
-    *       200:
-    *         description: Success
-    *         schema:
-    *           type: array
-    *           items:
-    *             $ref: '#/definitions/Rule'
-    */
+ * @swagger
+ * /Rule:
+ *   get:
+ *     description: Retrieve all rules
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ */
 router.get('/', async (req: Request, res: Response) => {
 	let allRules = await ruleModel.find();
 	res.status(200).json(allRules);
 });
 
+/**
+ * @swagger
+ * /Rule/{id}:
+ *   get:
+ *     description: Get a rule by ID
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Rule not found
+ *       500:
+ *         description: Error finding rule
+ * 
+ */
 router.get('/:id', async (req: Request, res: Response) => {
 	try {
 		const rule = await ruleModel.findById(req.params.id);
@@ -40,6 +60,24 @@ router.get('/:id', async (req: Request, res: Response) => {
 	}
 });
 
+/**
+    * @swagger
+	* /Rule:
+	*   post:
+	*     description: Add a new rule
+	*     requestBody:
+	*       required: true
+	*       content:
+	*         application/json
+	*     responses:
+	*       201:
+	*         description: Rule added
+	*       400:
+	*         description: Validation failed
+	*       500:
+	*         description: Error adding rule
+	* 
+	*/
 router.post('/', async (req: Request, res: Response) => {
 	const rule: IRule = req.body;
 	try {
@@ -59,6 +97,28 @@ router.post('/', async (req: Request, res: Response) => {
 	}
 });
 
+/**
+    * @swagger
+	* /Rule/{id}:
+	*   put:
+	*     description: Update a rule
+	*     parameters:
+	*       - name: id
+	*         in: path
+	*         required: true
+	*         schema:
+	*           type: string
+	*     requestBody:
+	*       required: true
+	*     responses:
+	*       200:
+	*         description: Rule updated
+	*       400:
+	*         description: Validation failed
+	*       500:
+	*         description: Error updating rule
+	* 
+	*/
 router.put('/:id', async (req: Request, res: Response) => {
 	const updatedRule: IRule = req.body;
 	try {
@@ -73,6 +133,25 @@ router.put('/:id', async (req: Request, res: Response) => {
 	}
 });
 
+/**
+    * @swagger
+	* /Rule/{id}:
+	*   delete:
+	*     description: Delete a rule
+	*     parameters:
+	*       - name: id
+	*         in: path
+	*         required: true
+	*         schema:
+	*           type: string
+	*     responses:
+	*       200:
+	*         description: Rule deleted
+	*       400:
+	*         description: Validation failed
+	*       500:
+	*         description: Error deleting rule
+	*/
 router.delete('/:id', async (req: Request, res: Response) => {
 	try {
 		await ruleModel.findByIdAndDelete(req.params.id);

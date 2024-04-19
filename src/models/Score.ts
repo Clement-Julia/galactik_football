@@ -2,6 +2,7 @@ import { Schema } from "mongoose";
 import { IPlayer } from "./Player";
 
 export interface IScore {
+    id: string;
     player: IPlayer;
     dateScore: Date;
 }
