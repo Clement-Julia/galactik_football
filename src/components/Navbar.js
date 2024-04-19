@@ -5,7 +5,7 @@ class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: controller.isLoggedIn(), // Par défaut, l'utilisateur n'est pas connecté
+      isLoggedIn: controller.isLoggedIn(),
       isAdmin : controller.isAdmin()
     };
     console.log('test isConnected', controller.isLoggedIn())
@@ -57,6 +57,11 @@ class Navbar extends React.Component {
                     <li className="nav-item">
                       <a className="nav-link" href="/dashboard">
                         Dashboard
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" href="/playerteam">
+                        Team
                       </a>
                     </li>
                     <li className="nav-item">

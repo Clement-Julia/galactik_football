@@ -7,6 +7,7 @@ import BudgetPage from './components/BudgetPage';
 import Rule from './components/Rule';
 import Player from './components/Player';
 import League from './components/League';
+import PlayerTeam from './components/PlayerTeam';
 import Team from './components/Team';
 import Tournament from './components/Tournament';
 import Match from './components/Match';
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/playerteam" element={<PlayerTeam />} />
           <Route exact path="/budget" element={<BudgetPage />} />
           <Route exact path="/connexion" element={<Connexion />} />
           {/* <Route exact path="/deconnexion" element={<Deconnexion />} /> */}

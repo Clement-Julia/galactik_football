@@ -66,17 +66,9 @@ const Match = () => {
                 const team1Name = teams.find(team => team._id === match.team1)?.name;
                 const team2Name = teams.find(team => team._id === match.team2)?.name;
                 const tournamentName = tournaments.find(tournament => tournament._id === match.tournament)?.name;
-                const score1Names = match.score1.map(scoreId => {
-                    const score = scores.find(score => score._id === scoreId);
-                    const player = players.find(player => player._id === score?.player);
-                    return player ? player.name : null;
-                });
-                const score2Names = match.score2.map(scoreId => {
-                    const score = scores.find(score => score._id === scoreId);
-                    const player = players.find(player => player._id === score?.player);
-                    return player ? player.name : null;
-                });
-                return { ...match, team1: team1Name, team2: team2Name, tournament: tournamentName, score1: score1Names, score2: score2Names };
+                const summaryWithBreaks = match.summary.replace(/Team/g, '<br />- Team');
+
+                return { ...match, team1: team1Name, team2: team2Name, tournament: tournamentName, summary: summaryWithBreaks };
             });
             setMatches(updatedMatches);
             setLoading(false);
@@ -99,9 +91,7 @@ const Match = () => {
                     </h2>
                     <div id={`collapse${index}`} className="accordion-collapse collapse" aria-labelledby={`heading${index}`} data-bs-parent="#matchAccordion">
                         <div className="accordion-body">
-                            <strong>{match.team1}:</strong> {match.score1.join(', ')}
-                            <br/>
-                            <strong>{match.team2}:</strong> {match.score2.join(', ')}
+                            <div dangerouslySetInnerHTML={{ __html: match.summary }} />
                         </div>
                     </div>
                 </div>
