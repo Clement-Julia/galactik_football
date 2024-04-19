@@ -10,6 +10,10 @@ import League from './components/League';
 import Team from './components/Team';
 import Tournament from './components/Tournament';
 import Match from './components/Match';
+import AdministrationUser from './components/AdministrationUser';
+import Connexion from './components/Connexion';
+import Inscription from './components/Inscription';
+import User from './components/User';
 import './App.css';
 
 function App() {
@@ -21,6 +25,11 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
           <Route exact path="/budget" element={<BudgetPage />} />
+          <Route exact path="/connexion" element={<Connexion />} />
+          {/* <Route exact path="/deconnexion" element={<Deconnexion />} /> */}
+          <Route exact path="/inscription" element={<Inscription />} />
+          <Route exact path="/administrationuser" element={<AdministrationUser />} />
+          <Route exact path="/user/:userId" element={<User />} />
           <Route exact path="/rule" element={<Rule />} />
           <Route exact path="/player" element={<Player />} />
           <Route exact path="/league" element={<League />} />
