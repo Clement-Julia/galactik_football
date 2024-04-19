@@ -44,7 +44,11 @@ router.post('/connexion', (req: Request, res: Response) => {
     console.log('mail',mail)
     console.log('password',password)
     controller.connexion(mail,password).then(User =>{
-      res.status(201).send({text:'User ajouté',msg:User});
+      console.log(User);
+      if(User.status === 200)
+        res.status(201).send({text:'User ajouté',msg:User});
+      else
+        res.status(User.status).send({text:User.message,})
     }).catch(error => {
       console.log('Error', error);
     });   

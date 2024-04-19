@@ -5,6 +5,7 @@ export default interface User {
     nom: string,
     mail: string,
     dateNaiss: string,
+    isAdmin: boolean,
     password: string
 }
 
@@ -12,6 +13,7 @@ export const UserSchema = new mongoose.Schema({
     nom: String,
     mail: String,
     dateNaiss: String,
+    isAdmin: Boolean,
     password: String
   });
 

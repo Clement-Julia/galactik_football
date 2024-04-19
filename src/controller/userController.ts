@@ -48,7 +48,7 @@ export default class UserController {
             return {status:500, message: "Une erreur est survenue lors de l'enregistrement de l'utilisateur." }
         }
     }
-    public async connexion(mail: string, password: string): Promise<{ status: number, token?: string, message: string }> {
+    public async connexion(mail: string, password: string){
         try {
             // Vérification des champs
             if (!mail || !password) {
@@ -79,7 +79,7 @@ export default class UserController {
                 { expiresIn: '1h' } // Durée de validité du jeton
             );
 
-            return { status: 200, token, message: "Connexion réussie." };
+            return { status: 200, token, message: "Connexion réussie." , isAdmin: user.isAdmin || null};
         } catch (error) {
             console.error("Erreur lors de l'authentification de l'utilisateur :", error);
             return { status: 500, message: "Une erreur est survenue lors de l'authentification." };
