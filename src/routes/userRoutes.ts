@@ -1,5 +1,5 @@
 import express, {Router, Request, Response} from 'express';
-import { userSchema } from '../models/User';
+import { IUser, userSchema } from '../models/User';
 import mongoose from "mongoose";
 import UserController from '../controller/userController';
 
@@ -30,7 +30,7 @@ router.get('/:id', (req: Request, res: Response) => {
 
 
 router.post('/inscription', (req: Request, res: Response) => {
-    const User:User = req.body;
+    const User:IUser = req.body;
     controller.inscription(User).then(User =>{
       res.status(201).send({User,msg:'User ajouté'});
     }).catch(error => {
@@ -57,7 +57,7 @@ router.post('/connexion', (req: Request, res: Response) => {
 router.put('/:id', (req: Request, res: Response) => {
   console.log(req.params.id)
   console.log(req.body)
-    controller.updateUserById(req.params.id, req.body as User).then(User =>{
+    controller.updateUserById(req.params.id, req.body as IUser).then(User =>{
         res.status(201).send("User mis à jour")
     }).catch(error =>{
         console.log('Error', error)

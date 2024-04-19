@@ -1,11 +1,10 @@
 import mongoose from 'mongoose';
-import { UserSchema } from '../models/User';
-import User from '../models/User';
+import { IUser, userSchema } from '../models/User';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 export default class UserController {
-    private model= mongoose.model('User', UserSchema);
+    private model= mongoose.model('User', userSchema);
 
     async getAllUsers() {
         try {
@@ -26,7 +25,7 @@ export default class UserController {
             throw error;
         }
       }
-      public async inscription(newUser:User){
+      public async inscription(newUser:IUser){
         try {
             if (!newUser.nom || !newUser.mail || !newUser.dateNaiss || !newUser.password) {
                 return { status:400,message: "Veuillez fournir tous les champs nécessaires." };
@@ -94,7 +93,7 @@ export default class UserController {
             throw error;
         }
       }
-      async updateUserById(UserId:string, updateData:User) {
+      async updateUserById(UserId:string, updateData:IUser) {
         console.log(UserId,updateData);
         try {
             const updatedUser = await this.model.findByIdAndUpdate(UserId, updateData, { new: true });
