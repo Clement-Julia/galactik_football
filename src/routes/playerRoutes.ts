@@ -48,6 +48,7 @@ router.post('/', async (req: Request, res: Response) => {
             age: player.age,
             nationality: player.nationality,
             position: player.position,
+			overallRating: player.overallRating,
             team: player.team
 		});
 		let savedPlayer = await onePlayerModel.save();

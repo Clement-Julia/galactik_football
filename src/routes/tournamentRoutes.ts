@@ -105,8 +105,6 @@ router.post('/run/:id', async (req: Request, res: Response) => {
 			const matches = [];
 
 			for (let i = 0; i < teams.length; i++) {
-				console.log(teams.length);
-				console.log(i);
 				const team1 = await teamModel.findById(teams[i]);
 				const team2 = await teamModel.findById(teams[i + 1]);
 				if (team1 !== null && team2 !== null) {
@@ -124,11 +122,9 @@ router.post('/run/:id', async (req: Request, res: Response) => {
 		}
 
 		const tournamentWinner = await teamModel.findById(teams[0]);
-		console.log(teams[0]);
 		if (tournamentWinner) {
 			await setTournamentWinner(id, tournamentWinner);
 		}
-		console.log('Endpoint 7');
 		res.status(200).send({message: 'Tournament finished', winner: tournamentWinner});
 	} catch (err) {
 		if (err instanceof mongoose.Error.ValidationError) {
@@ -168,8 +164,13 @@ async function createMatch(team1: mongoose.Document, team2: mongoose.Document, t
 }
 
 async function runMatch(match: mongoose.Document) {
-	const scoresTeam1 = await generateScores(match.get('team1'));
-	const scoresTeam2 = await generateScores(match.get('team2'));
+	let scoresTeam1 = await generateScores(match.get('team1'));
+	let scoresTeam2 = await generateScores(match.get('team2'));
+
+	while (scoresTeam1.length === scoresTeam2.length) {
+		scoresTeam1 = await generateScores(match.get('team1'));
+		scoresTeam2 = await generateScores(match.get('team2'));
+	}
 
 	match.set('score1', scoresTeam1);
 	match.set('score2', scoresTeam2);
@@ -197,7 +198,7 @@ async function generateScores(team: mongoose.Document) {
 
 	let lastGoalMinute = 0;
 
-	const players = await playerModel.find({ team: team._id, position: { $ne: 'Goalkeeper' } });
+	const players = await playerModel.find({ team: team._id, position: { $ne: 'GARDIEN' } });
 
 	while (lastGoalMinute < maxMinutes) {
 		const nextGoalMinute = lastGoalMinute + 20 + Math.floor(Math.random() * 10);

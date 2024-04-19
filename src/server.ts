@@ -10,6 +10,8 @@ import matchRoutes from './routes/matchRoutes';
 import ruleRoutes from './routes/ruleRoutes';
 import leagueRoutes from './routes/leagueRoutes';
 import scoreRoutes from './routes/scoreRoutes';
+import userRoutes from './routes/userRoutes';
+import userPlayerRoutes from './routes/UserPlayerRoutes';
 
 const app: Express = express()
 const PORT = 3001
@@ -51,6 +53,8 @@ app.use('/api/match', matchRoutes)
 app.use('/api/rule', ruleRoutes)
 app.use('/api/league', leagueRoutes)
 app.use('/api/score', scoreRoutes)
+app.use('/api/user', userRoutes)
+app.use('/api/userPlayer', userPlayerRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
