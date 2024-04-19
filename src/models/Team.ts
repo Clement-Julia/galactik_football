@@ -16,6 +16,6 @@ export const teamSchema = new Schema({
     name: {type: String, required: true},
     default: {type: Boolean, required: true},
     user: { type: Schema.Types.ObjectId, ref: 'User'},
-    player: [{ type: Schema.Types.ObjectId, ref: 'Player' }],
+    players: [{ type: Schema.Types.ObjectId, ref: 'Player' }],
     league: { type: Schema.Types.ObjectId, ref: 'League' }
 })

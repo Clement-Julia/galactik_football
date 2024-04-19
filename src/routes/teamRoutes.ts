@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import mongoose from 'mongoose';
 import { ITeam, teamSchema } from '../models/Team';
+import { IPlayer } from "../models/Player";
 
 const teamModel = mongoose.model('Team', teamSchema);
 const router = Router();
@@ -42,9 +43,14 @@ router.get('/playerTeam/:id', async (req: Request, res: Response) => {
 
 router.post('/playerTeam/:id', async (req: Request, res: Response) => {
 	try {
-		const team = await teamModel.findOne({ 'user': req.params.id });
-		if (team) {
-			res.status(200).json(team);
+		const newTeam: ITeam = req.body;
+		if (newTeam) {
+			const team = await teamModel.findById(req.params.id);
+			console.log(team);
+			console.log(newTeam);
+			const test = await teamModel.findByIdAndUpdate(req.params.id, newTeam);
+			console.log(test);
+			res.status(200).send("Players added to team");
 		} else {
 			res.status(404).send('Team not found for player');
 		}
