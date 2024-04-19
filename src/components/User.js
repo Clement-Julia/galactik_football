@@ -11,7 +11,7 @@ const User = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/user/${userId}`); // Utilisez l'ID de l'utilisateur dans l'URL
+        const response = await axios.get(`http://localhost:3001/api/user/${userId}`); // Utilisez l'ID de l'utilisateur dans l'URL
         setUser(response.data.User);
       } catch (error) {
         console.error('Erreur lors de la récupération des informations utilisateur :', error);
@@ -25,7 +25,7 @@ const User = () => {
     if(formState === "read"){
         setFormState('update')
     }else{
-        axios.put('http://localhost:3000/api/user/'+user._id, user)
+        axios.put('http://localhost:3001/api/user/'+user._id, user)
         .then(response => {
             console.log(response.data.data);
 

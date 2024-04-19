@@ -31,7 +31,48 @@ class Navbar extends React.Component {
           </button> 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              { this.state.isAdmin ?
+              <li className="nav-item">
+                <a className="nav-link" href="/">
+                  Home
+                </a>
+              </li>
+              {!this.state.isLoggedIn ? (
+                <React.Fragment>
+                  <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li className="nav-item">
+                      <a className="nav-link" href="/connexion">
+                        Connexion
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" href="/inscription">
+                        Inscription
+                      </a>
+                    </li>
+                  </ul>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li className="nav-item">
+                      <a className="nav-link" href="/dashboard">
+                        Dashboard
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" href="/budget">
+                        Market
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" onClick={() => { controller.logout() }} href="/deconnexion">
+                        Déconnexion
+                      </a>
+                    </li>
+                  </ul>
+                </React.Fragment>
+              )}
+              { this.state.isAdmin && this.state.isLoggedIn ?
               (<React.Fragment>
                 <li className="nav-item">
                   <a className="nav-link" href="/rule">
@@ -69,47 +110,6 @@ class Navbar extends React.Component {
                   </a>
                 </li>
               </React.Fragment>):(<React.Fragment></React.Fragment>)}
-              {!this.state.isLoggedIn ? (
-                <React.Fragment>
-                  <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li className="nav-item">
-                      <a className="nav-link" href="/connexion">
-                        Connexion
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="/inscription">
-                        Inscription
-                      </a>
-                    </li>
-                  </ul>
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li className="nav-item">
-                      <a className="nav-link" href="/">
-                        Home
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="/dashboard">
-                        Dashboard
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="/budget">
-                        Market
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" onClick={() => { controller.logout() }} href="/deconnexion">
-                        Déconnexion
-                      </a>
-                    </li>
-                  </ul>
-                </React.Fragment>
-              )}
             </ul>
           </div>
         </div>

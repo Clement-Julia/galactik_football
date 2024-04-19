@@ -9,7 +9,7 @@ const Connexion = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/api/user/connexion', {
+      const response = await axios.post('http://localhost:3001/api/user/connexion', {
         mail,
         password,
       });

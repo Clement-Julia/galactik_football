@@ -1,9 +1,9 @@
 class UserController{
     login = (token,isAdmin) => {
-        localStorage.setItem('token', token);
-        localStorage.setItem('isAdmin', isAdmin);
-        window.location.href = '/';
-      };
+      localStorage.setItem('token', token);
+      localStorage.setItem('isAdmin', isAdmin);
+      window.location.href = '/';
+    };
       
     logout = () => {
         localStorage.removeItem('token');

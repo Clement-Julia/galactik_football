@@ -14,7 +14,7 @@ const Inscription = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/api/user/inscription', {
+      const response = await axios.post('http://localhost:3001/api/user/inscription', {
         nom:username,
         mail:mail,
         dateNaiss,

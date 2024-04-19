@@ -9,7 +9,7 @@ const AdministrationUser = () => {
     const location = useLocation();
     const navigate = useNavigate();
     useEffect(() => {
-        axios.get('http://localhost:3000/api/user/')
+        axios.get('http://localhost:3001/api/user/')
         .then(response => {
             console.log(response.data);
             setUsers(response.data.Users);
@@ -23,7 +23,7 @@ const AdministrationUser = () => {
     }, []);
 
     const deleteUser = (id) => {
-        axios.delete(`http://localhost:3000/api/user/${id}`)
+        axios.delete(`http://localhost:3001/api/user/${id}`)
             .then(() => {
                 setUsers(users.filter(user => user._id !== id));
             })
