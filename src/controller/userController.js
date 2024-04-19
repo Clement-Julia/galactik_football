@@ -1,7 +1,8 @@
 class UserController{
-    login = (token,isAdmin) => {
+    login = (token,isAdmin,userId) => {
       localStorage.setItem('token', token);
       localStorage.setItem('isAdmin', isAdmin);
+      localStorage.setItem('userId', userId);
       window.location.href = '/';
     };
       

@@ -15,7 +15,7 @@ const Connexion = () => {
       });
       console.log(response);
       console.log('Utilisateur connecté !', response.data);
-      controller.login(response.data.msg.token,response.data.msg.isAdmin)
+      controller.login(response.data.msg.token,response.data.msg.isAdmin, response.data.msg.userId)
       window.location.href = '/';
       
       // Rediriger ou mettre à jour l'état de connexion ici

@@ -6,7 +6,7 @@ const BudgetPage = () => {
     const [playerList, setPlayerList] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const userId = "66222cee9fd7ae9425e9e093";
+    const userId = localStorage.getItem('userId');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,7 +34,7 @@ const BudgetPage = () => {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`/api/players/search?name=${searchTerm}`);
+            const response = await axios.get(`http://localhost:3001/api/player/search?name=${searchTerm}`);
             const filteredResults = response.data;
             
             const searchResultsWithOwnership = filteredResults.map(player => {
