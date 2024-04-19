@@ -28,7 +28,6 @@ router.get('/:id', (req: Request, res: Response) => {
       });
 })
 
-
 router.post('/inscription', (req: Request, res: Response) => {
     const User:IUser = req.body;
     controller.inscription(User).then(User =>{

@@ -37,6 +37,8 @@ export default class UserController {
             }
 
             newUser.password = await bcrypt.hash(newUser.password, 10);
+            newUser.isAdmin = false;
+            newUser.budget = 100000;
 
             let document = new this.model(newUser);
             let result = await document.save();
@@ -78,7 +80,7 @@ export default class UserController {
                 { expiresIn: '1h' } // Durée de validité du jeton
             );
 
-            return { status: 200, token, message: "Connexion réussie." , isAdmin: user.isAdmin || null};
+            return { status: 200, token, message: "Connexion réussie." , isAdmin: user.isAdmin || null, userId: user._id};
         } catch (error) {
             console.error("Erreur lors de l'authentification de l'utilisateur :", error);
             return { status: 500, message: "Une erreur est survenue lors de l'authentification." };

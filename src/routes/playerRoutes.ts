@@ -23,6 +23,19 @@ router.get('/', async (req: Request, res: Response) => {
 	res.status(200).json(allPlayers);
 });
 
+router.get('/search', async (req: Request, res: Response) => {
+	console.log('Test');
+	const searchTerm = req.query.name as string;
+	console.log('searchTerm:', searchTerm);
+	try {
+		const players = await playerModel.find({ name: { $regex: searchTerm, $options: 'i' } });
+		res.json(players);
+	} catch (error) {
+		console.error('Erreur lors de la recherche des joueurs par nom :', error);
+		res.status(500).send('Erreur lors de la recherche des joueurs par nom');
+	}
+});
+
 router.get('/:id', async (req: Request, res: Response) => {
 	try {
 		const player = await playerModel.findById(req.params.id);
