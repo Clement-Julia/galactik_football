@@ -6,7 +6,8 @@ export interface IUser {
     mail: string,
     dateNaiss: string,
     password: string,
-    budget: number
+    budget: number,
+    isAdmin: boolean,
 }
 
 export const userSchema = new Schema({
@@ -14,5 +15,6 @@ export const userSchema = new Schema({
     mail: String,
     dateNaiss: String,
     password: String,
-    budget: Number
+    budget: Number,
+    isAdmin: Boolean,
 });
