@@ -61,7 +61,15 @@ const PlayerTeam = () => {
     };
 
     const handleSave = () => {
-        console.log(selectedPlayers);
+        const newTeams = {...myTeams, players: selectedPlayers};
+        console.log(newTeams);
+        axios.post(`http://localhost:3001/api/team/playerTeam/${myTeams._id}`, newTeams)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
     };
 
     return(
@@ -71,7 +79,7 @@ const PlayerTeam = () => {
             <span>Attaque</span>
             <br/>
             {Array.from({ length: 3 }, (_, i) => (
-                <select key={i} className='my-4 mx-2' value={selectedPlayers[i]} onChange={(event) => handleSelectChange(i, event)}>
+                <select key={i} className='my-4 mx-2' value={myTeams.players ? myTeams.players[i] : selectedPlayers[i]} onChange={(event) => handleSelectChange(i, event)}>
                     <option value="" disabled>Select a player</option>
                     {playerList.map((player, index) => (
                         <option key={index} value={player._id} disabled={selectedPlayers.includes(player._id)}>
@@ -84,7 +92,7 @@ const PlayerTeam = () => {
             <span>Milieu</span>
             <br/>
             {Array.from({ length: 3 }, (_, i) => (
-                <select key={i+3} className='my-4 mx-3' value={selectedPlayers[i+3]} onChange={(event) => handleSelectChange(i+3, event)}>
+                <select key={i+3} className='my-4 mx-3' value={myTeams.players ? myTeams.players[i+3] : selectedPlayers[i+3]} onChange={(event) => handleSelectChange(i+3, event)}>
                     <option value="" disabled>Select a player</option>
                     {playerList.map((player, index) => (
                         <option key={index} value={player._id} disabled={selectedPlayers.includes(player._id)}>
@@ -97,7 +105,7 @@ const PlayerTeam = () => {
             <span>Défenseur</span>
             <br/>
             {Array.from({ length: 4 }, (_, i) => (
-                <select key={i+7} className='my-4 mx-1' value={selectedPlayers[i+7]} onChange={(event) => handleSelectChange(i+7, event)}>
+                <select key={i+6} className='my-4 mx-1' value={myTeams.players ? myTeams.players[i+6] : selectedPlayers[i+6]} onChange={(event) => handleSelectChange(i+6, event)}>
                     <option value="" disabled>Select a player</option>
                     {playerList.map((player, index) => (
                         <option key={index} value={player._id} disabled={selectedPlayers.includes(player._id)}>
@@ -110,10 +118,10 @@ const PlayerTeam = () => {
             <span>Gardien</span>
             <br/>
             {Array.from({ length: 1 }, (_, i) => (
-                <select key={i+11} className='my-4' value={selectedPlayers[i+11]} onChange={(event) => handleSelectChange(i+11, event)}>
+                <select key={i+10} className='my-4' value={myTeams.players ? myTeams.players[i+10] : selectedPlayers[i+10]} onChange={(event) => handleSelectChange(i+10, event)}>
                     <option value="" disabled>Select a player</option>
                     {playerList.map((player, index) => (
-                        <option key={index} value={player._id} disabled={selectedPlayers.includes(player.name)}>
+                        <option key={index} value={player._id} disabled={selectedPlayers.includes(player._id)}>
                             {player.name}
                         </option>
                     ))}
