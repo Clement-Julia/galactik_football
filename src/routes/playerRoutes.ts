@@ -13,6 +13,17 @@ router.get('/', async (req: Request, res: Response) => {
     }
 });
 
+router.get('/search', async (req: Request, res: Response) => {
+    const searchTerm = req.query.name as string;
+    try {
+        const players = await Player.find({ name: { $regex: searchTerm, $options: 'i' } }); // Recherche insensible à la casse
+        res.json(players);
+    } catch (error) {
+        console.error('Erreur lors de la recherche des joueurs par nom :', error);
+        res.status(500).send('Erreur lors de la recherche des joueurs par nom');
+    }
+});
+
 router.get('/:playerId', async (req: Request, res: Response) => {
     const playerId = req.params.playerId;
     try {

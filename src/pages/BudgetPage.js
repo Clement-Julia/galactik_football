@@ -11,10 +11,10 @@ const BudgetPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const budgetResponse = await axios.get('/api/user/662117b3b753f10b74f8dd2b/budget');
+                const budgetResponse = await axios.get(`/api/user/${userId}/budget`);
                 setBudget(budgetResponse.data.budget);
 
-                const playerListResponse = await axios.get('/api/userplayers/662117b3b753f10b74f8dd2b');
+                const playerListResponse = await axios.get(`/api/userplayers/${userId}`);
                 setPlayerList(playerListResponse.data);
 
                 const playerDataRequests = playerListResponse.data.map(async (player) => {
@@ -34,20 +34,20 @@ const BudgetPage = () => {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`/api/players?name=${searchTerm}`);
-            const filteredResults = response.data.filter(player => player.name.includes(searchTerm));
-    
+            const response = await axios.get(`/api/players/search?name=${searchTerm}`);
+            const filteredResults = response.data;
+            
             const searchResultsWithOwnership = filteredResults.map(player => {
-                const playerIds = playerList.map(player => player._id);
-                const isOwned = playerIds.includes(player._id);
+                const isOwned = playerList.some(p => p._id === player._id);
                 return { ...player, isOwned };
-            });            
+            });
     
             setSearchResults(searchResultsWithOwnership);
         } catch (error) {
             console.error('Erreur lors de la recherche des joueurs :', error);
         }
     };
+    
 
     const handleBuy = async (playerId, playerOverallRating) => {
         try {
