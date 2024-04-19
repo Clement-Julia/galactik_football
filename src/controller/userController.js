@@ -1,6 +1,7 @@
 class UserController{
-    login = (token) => {
+    login = (token,isAdmin) => {
         localStorage.setItem('token', token);
+        localStorage.setItem('isAdmin', isAdmin);
         window.location.href = '/';
       };
       
@@ -16,6 +17,13 @@ class UserController{
     isLoggedIn = () => {
         return this.getToken() !== null;
       };
+    
+    getStatus = () => {
+      return localStorage.getItem('isAdmin')
+    }
+    isAdmin = () => {
+      return this.getStatus() !== 'null';
+    };
 }
 
 export default UserController

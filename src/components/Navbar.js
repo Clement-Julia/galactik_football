@@ -5,9 +5,11 @@ class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: controller.isLoggedIn() // Par défaut, l'utilisateur n'est pas connecté
+      isLoggedIn: controller.isLoggedIn(), // Par défaut, l'utilisateur n'est pas connecté
+      isAdmin : controller.isAdmin()
     };
-    console.log('test isConnected', controller.isLoggedIn(),controller)
+    console.log('test isConnected', controller.isLoggedIn())
+    console.log('test isAdmin', controller.isAdmin())
   }
   render() {
     return (
@@ -34,7 +36,8 @@ class Navbar extends React.Component {
                   Home
                 </a>
               </li>
-              <li className="nav-item">
+              { this.state.isAdmin ?
+              (<React.Fragment><li className="nav-item">
                 <a className="nav-link" href="/rule">
                   Rule
                 </a>
@@ -54,6 +57,11 @@ class Navbar extends React.Component {
                   Tournament
                 </a>
               </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/administrationuser">
+                  Administration User
+                </a>
+              </li></React.Fragment>):(<React.Fragment></React.Fragment>)}
               {!this.state.isLoggedIn ? (
                 <React.Fragment>
                   <li className="nav-item">
@@ -75,11 +83,7 @@ class Navbar extends React.Component {
                       Déconnexion
                     </a>
                   </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/administrationuser">
-                      Administration User
-                    </a>
-                  </li>
+
 
                 </React.Fragment>
               )}
